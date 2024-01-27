@@ -38,6 +38,8 @@
 #define FE_MissingDLC 13
 #define FE_ApplySettings 14
 
+#define DEFAULT_PORT 38281
+
 #define VERSION "2.2.0"
 
 

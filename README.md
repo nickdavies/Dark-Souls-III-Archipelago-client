@@ -15,7 +15,7 @@ This mod works with a single dll file but we also provide a way to downpatch the
 - All client commands start with "/" and archipelago commands start with "!" :
 	- /help : Prints this help message.
 	- !help : to retrieve all archipelago commands
-	- /connect {SERVER_IP}:{SERVER_PORT} {USERNAME} [password:{PASSWORD}]  
+	- /connect {SERVER_IP}[:{SERVER_PORT}] {USERNAME} [password:{PASSWORD}]
 	Connect by entering SERVER_IP, SERVER_PORT and USERNAME. You can additionaly add a PASSWORD if requested by the server.
 	
 ## Troubleshoots

@@ -47,7 +47,7 @@ BOOL CCore::Initialise() {
 	freopen_s(&fp, "CONIN$", "r", stdin);
 	Core->Logger(std::string("Archipelago client v") + VERSION);
 	Core->Logger("A new version may or may not be available, please check this link for updates : https://github.com/Marechal-L/Dark-Souls-III-Archipelago-client/releases", false);
-	Core->Logger("Type '/connect {SERVER_IP}:{SERVER_PORT} {SLOT_NAME} [password:{PASSWORD}]' to connect to the room", false);
+	Core->Logger("Type '/connect {SERVER_IP}[:{SERVER_PORT}] {SLOT_NAME} [password:{PASSWORD}]' to connect to the room", false);
 	Core->Logger("Type '/help for more information", false);
 	Core->Logger("-----------------------------------------------------", false);
 
@@ -173,7 +173,7 @@ VOID CCore::InputCommand() {
 			printf("List of available commands : \n");
 			printf("/help : Prints this help message.\n");
 			printf("!help : Prints the help message related to Archipelago.\n");
-			printf("/connect {SERVER_IP}:{SERVER_PORT} {SLOT_NAME} [password:{PASSWORD}] : Connect to the specified server.\n");
+			printf("/connect {SERVER_IP}[:{SERVER_PORT}] {SLOT_NAME} [password:{PASSWORD}] : Connect to the specified server.\n");
 			printf("/debug on|off : Prints additional debug info \n");
 		}
 
@@ -215,10 +215,14 @@ VOID CCore::InputCommand() {
 			std::string param = line.substr(9);
 			int spaceIndex = param.find(" ");
 			if (spaceIndex == std::string::npos) {
-				Core->Logger("Missing parameter : Make sure to type '/connect {SERVER_IP}:{SERVER_PORT} {SLOT_NAME} [password:{PASSWORD}]'");
+				Core->Logger("Missing parameter : Make sure to type '/connect {SERVER_IP}[:{SERVER_PORT}] {SLOT_NAME} [password:{PASSWORD}]'");
 			} else {
 				int passwordIndex = param.find("password:");
 				std::string address = param.substr(0, spaceIndex);
+				if (address.find(":") == std::string::npos) {
+					std::cout << "No port provided assuming " << DEFAULT_PORT << "\n";
+					address.append(":" + std::to_string(DEFAULT_PORT));
+				}
 				std::string slotName = param.substr(spaceIndex + 1, passwordIndex - spaceIndex - 2);
 				std::string password = "";
 				std::cout << address << " - " << slotName << "\n";
